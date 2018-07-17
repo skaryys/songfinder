@@ -1,0 +1,62 @@
+@import "grid-config"
+@import "_mixins"
+
+.container
+    width: 100%
+    max-width: 100% !important
+    display: block
+    padding-left: $grid-gutter-width-half
+    padding-right: $grid-gutter-width-half
+
+    +break($screen-xs)
+        width: $screen-xs
+        margin-left: auto
+        margin-right: auto
+
+    +break($screen-sm)
+        width: $screen-sm
+
+    +break($screen-md)
+        width: $screen-md
+
+    +break($screen-lg)
+        width: $screen-lg
+
+    +break($screen-xl)
+        width: $screen-xl
+
+
+
+// Component
+//
+// Component contain and clear the floats of set of columns (typically organism - one or more rows of smaller components (molecules)
+
+.component
+    +make-component
+
+// Columns
+//
+// Common styles for small and large grid columns
++make-grid-columns
+
+// Extra large grid
+//
+// Columns, offsets, pushes, and pulls for FullHD resolution devices and higher
+
++make-grid(xs)
+
+// Small grid
+//
+// Columns, offsets, pushes, and pulls for high resolution mobiles - portrait
+
++break($screen-xs)
+    +make-grid(sm)
+
++break($screen-sm)
+    +make-grid(md)
+
++break($screen-md)
+    +make-grid(lg)
+
++break($screen-lg)
+    +make-grid(xl)

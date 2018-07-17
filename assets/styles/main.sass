@@ -1,0 +1,30 @@
+// Mixins and variables
+@import "base/tools/mixins"
+
+// Grid and breakpoints
+@import "base/grid/breakpoints"
+@import "base/grid/grid"
+
+// Variables, theme settings and global animations
+@import "base/settings/colors"
+@import "base/settings/fonts"
+@import "base/settings/animations"
+
+// Unifying styles
+@import "base/generic/resets"
+
+//below this put atoms -> molecules -> organisms -> templates -> pages
+
+@import "components/organisms/header"
+
+@import "sections/templates/content"
+
+// utilities and helper classes - need to be included last
+@import "base/generic/utils"
+@import "base/vendor/suitcss/align"
+@import "base/vendor/suitcss/display"
+@import "base/vendor/suitcss/layout"
+@import "base/vendor/suitcss/link"
+@import "base/vendor/suitcss/position"
+@import "base/vendor/suitcss/flex"
+@import "base/vendor/suitcss/text"

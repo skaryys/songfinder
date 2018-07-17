@@ -1,0 +1,106 @@
+// =============================================================================
+// Font Face
+// =============================================================================
+
+// String Replace
+
+@function str-replace($string, $search, $replace: "")
+    $index: str-index($string, $search)
+
+    @if $index
+        @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace)
+
+    @return $string
+
+=font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg)
+    $src: null
+
+    $extmods: (eot: "?", svg: "#" + str-replace($name, " ", "_"))
+    $formats: (otf: "opentype", ttf: "truetype")
+    @each $ext in $exts
+        $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext)
+        $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext)
+        $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma)
+
+    @font-face
+        font-family: quote($name)
+        font-style: $style
+        font-weight: $weight
+        src: $src
+
+// =============================================================================
+// Placeholder style
+// =============================================================================
+=placeholder
+    &::-webkit-input-placeholder
+        @content
+
+    &:-moz-placeholder
+        @content
+
+    &::-moz-placeholder
+        @content
+
+    &:-ms-input-placeholder
+        @content
+
+//calc function
+
+=calc($property, $expression)
+    #{$property}: -moz-calc(#{$expression})
+    #{$property}: -webkit-calc(#{$expression})
+    #{$property}: calc(#{$expression})
+
+// =============================================================================
+// Sticky footer
+// =============================================================================
+=sticky-footer($footer-height: 1px, $content-wrapper: '#content')
+    body
+        height: 100%
+
+    footer
+        margin-top: -$footer-height
+
+    #{$content-wrapper}
+        +calc(min-height,"100% - 1085px")
+        height: auto !important
+        padding-bottom: $footer-height
+
+//input reset
+
+=disableDefaults
+    -webkit-appearance: none
+    -moz-appearance: none
+    border: 1px solid #000000
+    border-radius: 0
+    box-shadow: none
+    font-family: inherit
+
+    &:focus
+        outline: none
+
+    &:-webkit-autofill
+        background: inherit !important
+        color: inherit !important
+
+    &::-ms-expand
+        display: none
+
+    &[type="submit"]
+        border: none
+
+
+// media query mixin
+=break($screen)
+    @media screen and (min-width: $screen)
+        @content
+
+//media height query mixin
+=heightBreak($screen)
+    @media screen and (min-height: $screen)
+        @content
+
+//Mixin for styles which should be applied only on Microsoft Edge
+=edge
+    @supports (-ms-ime-align: auto)
+        @content
